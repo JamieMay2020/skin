@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSMX420</title>
+<style>
+  @font-face {
+    font-family: 'CSFont';
+    src: url('cs_regular.ttf') format('truetype');
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0d0f12;
+    color: #ccc;
+    position: relative;
+  }
+
+  header {
+    background-color: #0e1319;
+    padding: 10px 20px;
+    color: white;
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-image {
+    height: 60px; /* Adjust as needed */
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .nav-header {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px 0;
+  }
+
+  .nav-header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'CSFont', sans-serif;
+    font-size: 28px;
+    transition: color 0.2s;
+  }
+
+  .nav-header a:hover {
+    color: #FF9900;
+  }
+
+  .ticker {
+    background: #111;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+  }
+
+  .ticker-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 140s linear infinite;
+  }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+
+  .ticker-item {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid #333;
+    font-weight: bold;
+  }
+
+  .red { color: red; }
+  .green { color: #00ff00; }
+
+  .section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #11141a;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+
+  .section h2 {
+    font-family: 'CSFont', sans-serif;
+    color: #FF9900;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .section p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .charts {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .charts img {
+    width: 280px;
+    border-radius: 6px;
+    border: 1px solid #444;
+  }
+
+  .player-stats-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background-color: #1b1f24;
+    border-radius: 10px;
+    padding: 20px 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin-top: 20px;
+  }
+
+  .player-stats-bar img {
+    width: 120px;
+    border-radius: 8px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat strong {
+    font-size: 24px;
+    color: #fff;
+  }
+
+  footer {
+    background-color: #0e0e0e;
+    padding: 30px;
+    font-size: 12px;
+    color: #777;
+    border-top: 1px solid #333;
+    line-height: 1.6;
+  }
+  
+  .split-section {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+  
+  .left-box {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #11141a;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+  
+  .right-box {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #11141a;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+  
+  .item-image {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 1px solid #444;
+  }
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    text-shadow: 0 0 10px black;
+  }
+
+  .premium-item {
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .premium-item::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, 
+      rgba(255, 215, 0, 0) 0%,
+      rgba(255, 215, 0, 0.3) 50%,
+      rgba(255, 215, 0, 0) 100%
+    );
+    filter: blur(10px);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s;
+  }
+
+  .premium-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .premium-item:hover::after {
+    opacity: 1;
+    animation: glowPulse 2s infinite;
+  }
+
+  @keyframes glowPulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.4; }
+  }
+
+  /* Horizontal Item Display Styles */
+  .items-container {
+    position: relative;
+    width: 100%;
+    margin: 30px 0;
+    padding-bottom: 40px;
+  }
+
+  .items-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .skin-item {
+    width: 280px;
+    transition: transform 0.3s ease;
+  }
+
+  .skin-item:hover {
+    transform: translateY(-10px);
+  }
+
+  .skin-card {
+    background: linear-gradient(145deg, #151922, #0d1116);
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s;
+  }
+
+  .skin-item:hover .skin-card {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 153, 0, 0.2);
+    border-color: #FF9900;
+  }
+
+  .skin-item:hover .skin-card::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 18px;
+    background: linear-gradient(45deg, 
+      rgba(255, 153, 0, 0) 0%,
+      rgba(255, 153, 0, 0.3) 50%,
+      rgba(255, 153, 0, 0) 100%
+    );
+    filter: blur(10px);
+    z-index: -1;
+    animation: glowPulse 2s infinite;
+  }
+
+  .skin-img {
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: transform 0.3s;
+  }
+
+  .skin-item:hover .skin-img {
+    transform: translateY(-5px);
+  }
+
+  .skin-info {
+    text-align: center;
+  }
+
+  .skin-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .price-tag {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FF9900;
+  }
+
+  .price-change {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
+  }
+
+  .skin-btn {
+    background: linear-gradient(135deg, #FF9900, #FF6600);
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    margin-top: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(255, 153, 0, 0.3);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .skin-item:hover .skin-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .skin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 153, 0, 0.5);
+  }
+
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: transparent;
+  }
+
+  /* Make sure the main content has appropriate z-index */
+  header, .section, .ticker, .split-section, footer {
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<!-- Lightbox container -->
+<div id="imageLightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img class="lightbox-content" id="lightboxImage">
+</div>
+
+<header>
+  <div class="header-content">
+    <div class="logo-container">
+      <img src="icon22.png" alt="SKINDEX500 Logo" class="logo-image">
+    </div>
+    <div style="height: 2px; background: #333; margin: 10px 0;"></div>
+    <div class="nav-header">
+      <a href="#">pump.fun</a>
+      <a href="#">x.com</a>
+      <a href="#">community</a>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-content">
+    <span class="ticker-item red">SPX500 ▼ -3.7%</span>
+    <span class="ticker-item green">AK-47 Fire Serpent ▲ +112%</span>
+    <span class="ticker-item red">NASDAQ ▼ -1.9%</span>
+    <span class="ticker-item green">AWP Dragon Lore ▲ +145%</span>
+    <span class="ticker-item red">META ▼ -4.2%</span>
+    <span class="ticker-item green">Butterfly Knife Fade ▲ +89%</span>
+    <span class="ticker-item red">DOWJONES ▼ -2.4%</span>
+    <span class="ticker-item green">M4A4 Howl ▲ +102%</span>
+    <span class="ticker-item red">TSLA ▼ -5.1%</span>
+    <span class="ticker-item green">Karambit Doppler ▲ +76%</span>
+    <span class="ticker-item red">AMZN ▼ -3.3%</span>
+    <span class="ticker-item green">ST AK-47 Vulcan ▲ +58%</span>
+    <span class="ticker-item red">NVDA ▼ -0.9%</span>
+    <span class="ticker-item green">AWP Gungnir ▲ +97%</span>
+    <span class="ticker-item red">INTC ▼ -2.1%</span>
+    <span class="ticker-item green">Desert Eagle Blaze ▲ +61%</span>
+    <span class="ticker-item red">NFLX ▼ -1.6%</span>
+    <span class="ticker-item green">Glock-18 Fade ▲ +52%</span>
+    <span class="ticker-item red">SPX500 ▼ -99%</span>
+    <span class="ticker-item green">SKINDEX ▲ +420%</span>
+    <span class="ticker-item red">NASDAQ ▼ -87%</span>
+    <span class="ticker-item red">DOWJONES ▼ -75%</span>
+    <span class="ticker-item green">AWP-HEDGE ▲ +690%</span>
+    <span class="ticker-item red">META ▼ -60%</span>
+    <span class="ticker-item red">SPX500 ▼ -99%</span>
+    <span class="ticker-item green">SKINDEX ▲ +420%</span>
+    <span class="ticker-item red">NASDAQ ▼ -87%</span>
+    <span class="ticker-item red">DOWJONES ▼ -75%</span>
+    <span class="ticker-item green">AWP-HEDGE ▲ +690%</span>
+    <span class="ticker-item red">META ▼ -60%</span>
+  </div>
+</div>
+
+<div class="section">
+  <center><h2>$SKINDEX500</h2>
+  <p>CA</p></center>
+</div>
+
+<div class="section">
+  <h2>SKINS ARE A HEDGE AGAINST THE MARKET</h2>
+  <p>While stocks and crypto slumped in early 2025, CS2 skins surged. No central banks. No earnings calls. Just pure supply and demand.</p>
+  <p>In the last 2 months, CS2 skins outperformed BTC, ETH, and the S&P 500.</p>
+  <div class="charts">
+    <img src="csg.png" alt="CS2 Skin Chart" class="enlargeable" />
+    <img src="graph2.png" alt="BTC Chart" class="enlargeable" />
+    <img src="ethg.png" alt="ETH Chart" class="enlargeable" />
+    <img src="graph1.png" alt="S&P Chart" class="enlargeable" />
+  </div>
+</div>
+
+<div class="section">
+  <h2>THE PLAYERBASE IS GROWING!</h2>
+  <p>More players = more demand = stronger skin market.</p>
+  <p>From 1.55M in Nov 2024 to 1.81M in April 2025 — CS2 adoption keeps climbing.</p>
+  <div class="player-stats-bar">
+    <img src="cs2.png" alt="CS2 Logo" class="enlargeable" />
+    <div class="stat"><strong>547,413</strong><br><span>players right now</span></div>
+    <div class="stat"><strong>1,548,090</strong><br><span>24-hour peak</span></div>
+    <div class="stat"><strong>1,862,531</strong><br><span>all-time peak last month</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>TOP TRENDING SKINS</h2>
+  <div class="items-container">
+    <div class="items-wrapper">
+      <!-- Items will be added by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<div class="split-section">
+  <div class="left-box">
+    <h2>The Karambit Blue Gem: $2M Digital Icon</h2>
+    <img src="karambit.webp" alt="Karambit Blue Gem" class="item-image enlargeable" style="max-width: 300px;" />
+    <p>With only 9 known Pattern #387 Karambit | Case Hardeneds in existence — and just one in Factory New — the Blue Gem is more than a skin. It's scarcity meets obsession.</p>
+    <p>In 2021, it received a <strong>€1.2 million offer</strong> in Bitcoin. Rejected instantly. Estimated value today: <strong>over $2 million</strong>.</p>
+    <p>This is not just speculation. It's a globally recognized asset, revered like a Rolex, archived like art. The owner? Known only as "青い王."</p>
+    <p><em>This case study illustrates the upper tier of digital skin valuation — driven by rarity, aesthetics, and narrative.</em></p>
+  </div>
+  
+  <div class="right-box">
+    <h2>AWP Dragon Lore: The Hunter's Trophy</h2>
+    <img src="awpdragonlore.png" alt="AWP Dragon Lore" class="item-image enlargeable premium-item" />
+    <p>The AWP Dragon Lore remains the most iconic sniper skin in CS history, with Factory New variants selling for <strong>$15,000+</strong> in 2025.</p>
+    <p>Originally a Cobblestone Collection drop from 2014, its supply was capped when the map was removed from active duty. Souvenir versions signed by pro players can fetch <strong>$25,000+</strong>.</p>
+    <p>As CS2's player base grows, Dragon Lore has appreciated <strong>145%</strong> in the last quarter alone, outperforming nearly all traditional market assets.</p>
+    <p><em>The Dragon Lore represents the perfect combination of status, rarity, and in-game performance that drives the premium skin market.</em></p>
+  </div>
+</div>
+
+<footer>
+  <center>SKINDEX500 is a meme token created purely for entertainment with no real-world financial value or affiliations. This site is unofficial, satirical, and not associated with any organizations, markets, or individuals depicted.
+Use of this site is at your own risk — nothing here is financial advice.
+By continuing, you accept full responsibility for any actions or outcomes.</center>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+  // Get the lightbox elements
+  const lightbox = document.getElementById('imageLightbox');
+  const lightboxImg = document.getElementById('lightboxImage');
+  const lightboxClose = document.querySelector('.lightbox-close');
+  
+  // Get all images that should be enlargeable
+  const images = document.querySelectorAll('.enlargeable');
+  
+  // Add click event to all enlargeable images
+  images.forEach(img => {
+    img.addEventListener('click', function() {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = this.src;
+      lightboxImg.alt = this.alt;
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+    });
+  });
+  
+  // Close lightbox when clicking on it or the close button
+  lightbox.addEventListener('click', function(e) {
+    if (e.target !== lightboxImg) {
+      closeLightbox();
+    }
+  });
+  
+  lightboxClose.addEventListener('click', closeLightbox);
+  
+  // Close lightbox when pressing Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+      closeLightbox();
+    }
+  });
+  
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  // Horizontal items implementation
+  document.addEventListener('DOMContentLoaded', function() {
+    // Items data with links
+    const skinItems = [
+      {
+        image: "fireserpent.png",
+        title: "AK-47 Fire Serpent",
+        price: "$3,998.72",
+        change: "+112%",
+        isUp: true,
+        link: "https://csgoskins.gg/items/ak-47-fire-serpent" // Add your link URL here
+      },
+      {
+        image: "m4howl.png",
+        title: "M4A4 Howl",
+        price: "$9,208.19",
+        change: "+102%",
+        isUp: true,
+        link: "https://csgoskins.gg/items/m4a4-howl" // Add your link URL here
+      },
+      {
+        image: "gammad.png",
+        title: "Flip Knife Gamma Doppler",
+        price: "$980.00",
+        change: "+145%",
+        isUp: true,
+        link: "https://csgoskins.gg/items/flip-knife-gamma-doppler" // Add your link URL here
+      },
+      {
+        image: "hedge.png",
+        title: "Sport Gloves",
+        price: "$50,786.00",
+        change: "+200%",
+        isUp: true,
+        link: "https://csgoskins.gg/items/sport-gloves-hedge-maze" // Add your link URL here
+      }
+    ];
+    
+    const itemsWrapper = document.querySelector('.items-wrapper');
+    
+    // Create skin items
+    skinItems.forEach(item => {
+      const itemEl = document.createElement('div');
+      itemEl.classList.add('skin-item');
+      
+      itemEl.innerHTML = `
+        <div class="skin-card">
+          <img src="${item.image}" alt="${item.title}" class="skin-img">
+          <div class="skin-info">
+            <h3>${item.title}</h3>
+            <div class="price-tag">${item.price}</div>
+            <div class="price-change ${item.isUp ? 'green' : 'red'}">${item.change}</div>
+            <a href="${item.link}" class="skin-btn">View Details</a>
+          </div>
+        </div>
+      `;
+      
+      itemsWrapper.appendChild(itemEl);
+    });
+    
+    // Optional: Add click event listener for analytics or custom behavior
+    document.querySelectorAll('.skin-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        // You can add additional functionality here if needed
+        console.log(`Clicked on: ${this.getAttribute('href')}`);
+        
+        // If you want to prevent default and handle navigation programmatically
+        // e.preventDefault();
+        // window.location.href = this.getAttribute('href');
+      });
+    });
+  });
+
+  // Particles.js implementation
+  document.addEventListener('DOMContentLoaded', function() {
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 50,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#FF9900"
+        },
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#000000"
+          },
+          polygon: {
+            nb_sides: 5
+          }
+        },
+        opacity: {
+          value: 0.3,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 0.5,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 2,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#FF9900",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 1200
+          }
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            line_linked: {
+              opacity: 0.8
+            }
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  });
+</script>
+
+</body>
+</html>
