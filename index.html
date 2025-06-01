@@ -440,12 +440,24 @@
     z-index: -1;
     background-color: transparent;
   }
-
-  /* Make sure the main content has appropriate z-index */
-  header, .section, .ticker, .split-section, footer {
-    position: relative;
-    z-index: 1;
-  }
+.logo-image {
+  height: 160px;
+  max-width: 100%;
+  object-fit: contain;
+  display: block; /* Ensure it's displayed */
+  margin: 0 auto; /* Center it */
+  background-color: rgba(255, 255, 255, 0.1); /* Temporary background to see the space */
+  border: 2px solid #FF9900; /* Temporary border to see the boundaries */
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0; /* Changed from 0px 0 */
+  width: 100%; /* Changed from 00% which might be causing issues */
+  min-height: 180px; /* Ensure there's space for the image */
+}
+  
   .logo-text {
   font-family: 'CSFont', sans-serif;
   font-size: 120px;
@@ -470,7 +482,11 @@
 <header>
   <div class="header-content">
 <div class="logo-container">
-  <div class="logo-text">CSI</div>
+  <img src="CSIPNG.png" class="logo-image" 
+
+  <div style="color: white; font-size: 12px; margin-top: 10px;">
+
+  </div>
 </div>
     <div class="1-line" style="text-align: center; color: #FF9900; font-weight: bold; margin: 5px 0 0 0; font-family: 'CSFont', sans-serif;"></div>
     <div style="height: 2px; background: #333; margin: 5px 0;"></div>
