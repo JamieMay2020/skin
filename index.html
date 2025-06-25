@@ -14,13 +14,13 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #0d0f12;
+    background-color: #0f1217; /* Changed from #0d0f12 - slightly different tone */
     color: #ccc;
     position: relative;
   }
 
   header {
-    background-color: #0e1319;
+    background-color: #10151c; /* Changed from #0e1319 - slightly different tone */
     padding: 10px 20px;
     color: white;
   }
@@ -35,14 +35,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 0;
-    width: 00%;
+    padding: 20px 0;
+    width: 100%;
+    min-height: 180px;
   }
 
   .logo-image {
-    height: 160px; /* Increased from 60px to 90px */
+    height: 160px;
     max-width: 100%;
     object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #FF9900;
   }
 
   .nav-header {
@@ -59,7 +64,7 @@
     font-family: 'CSFont', sans-serif;
     font-size: 22px;
     transition: all 0.3s ease;
-    background: rgba(17, 20, 26, 0.7);
+    background: rgba(19, 23, 30, 0.7); /* Adjusted to match new color scheme */
     border: 1px solid #333;
     border-radius: 8px;
     padding: 8px 20px;
@@ -96,7 +101,7 @@
   }
 
   .ticker {
-    background: #111;
+    background: #13161b; /* Changed from #111 - matches new scheme */
     color: white;
     overflow: hidden;
     white-space: nowrap;
@@ -134,7 +139,7 @@
     padding: 20px;
     border: 2px solid #333;
     border-radius: 10px;
-    background-color: #11141a;
+    background-color: #13171e; /* Changed from #11141a - matches new scheme */
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
   }
 
@@ -149,6 +154,40 @@
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 20px;
+  }
+
+  /* New styles for tweet section */
+  .tweet-section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #13171e;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+
+  .tweet-section h2 {
+    font-family: 'CSFont', sans-serif;
+    color: #FF9900;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .tweet-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(16, 21, 28, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 153, 0, 0.2);
+  }
+
+  .tweet-container iframe {
+    max-width: 100%;
+    border-radius: 12px;
   }
 
   .charts {
@@ -169,7 +208,7 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
-    background-color: #1b1f24;
+    background-color: #1d2128; /* Adjusted to match new scheme */
     border-radius: 10px;
     padding: 20px 30px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -211,7 +250,7 @@
     padding: 20px;
     border: 2px solid #333;
     border-radius: 10px;
-    background-color: #11141a;
+    background-color: #13171e; /* Updated to match new scheme */
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
   }
   
@@ -220,7 +259,7 @@
     padding: 20px;
     border: 2px solid #333;
     border-radius: 10px;
-    background-color: #11141a;
+    background-color: #13171e; /* Updated to match new scheme */
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
   }
   
@@ -328,8 +367,8 @@
     transform: translateY(-10px);
   }
 
-  .skin-1rd {
-    background: linear-gradient(145deg, #151922, #0d1116);
+  .skin-card {
+    background: linear-gradient(145deg, #171a24, #0f1218); /* Updated gradient */
     border: 1px solid #333;
     border-radius: 15px;
     padding: 20px;
@@ -340,12 +379,12 @@
     transition: box-shadow 0.3s;
   }
 
-  .skin-item:hover .skin-1rd {
+  .skin-item:hover .skin-card {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 153, 0, 0.2);
     border-color: #FF9900;
   }
 
-  .skin-item:hover .skin-1rd::after {
+  .skin-item:hover .skin-card::after {
     content: '';
     position: absolute;
     top: -5px;
@@ -440,35 +479,18 @@
     z-index: -1;
     background-color: transparent;
   }
-.logo-image {
-  height: 160px;
-  max-width: 100%;
-  object-fit: contain;
-  display: block; /* Ensure it's displayed */
-  margin: 0 auto; /* Center it */
-  background-color: rgba(255, 255, 255, 0.1); /* Temporary background to see the space */
-  border: 2px solid #FF9900; /* Temporary border to see the boundaries */
-}
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0; /* Changed from 0px 0 */
-  width: 100%; /* Changed from 00% which might be causing issues */
-  min-height: 180px; /* Ensure there's space for the image */
-}
   
   .logo-text {
-  font-family: 'CSFont', sans-serif;
-  font-size: 120px;
-  font-weight: bold;
-  color: #FF9900;
-  text-align: center;
-  margin: 0;
-  padding: 20px 0;
-  text-shadow: 0 0 20px rgba(255, 153, 0, 0.5);
-  letter-spacing: 8px;
-}
+    font-family: 'CSFont', sans-serif;
+    font-size: 120px;
+    font-weight: bold;
+    color: #FF9900;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    text-shadow: 0 0 20px rgba(255, 153, 0, 0.5);
+    letter-spacing: 8px;
+  }
 </style>
 </head>
 <body>
@@ -528,6 +550,18 @@
     <span class="ticker-item red">DOWJONES ▼ -75%</span>
     <span class="ticker-item green">AWP-HEDGE ▲ +690%</span>
     <span class="ticker-item red">META ▼ -60%</span>
+  </div>
+</div>
+
+<!-- New Tweet Section -->
+<div class="tweet-section">
+  <h2>RECENT UPDATES</h2>
+  <div class="tweet-container">
+    <blockquote class="twitter-tweet" data-theme="dark">
+      <p lang="en" dir="ltr">I added support for using an inspect link on crafted weapons, e.g. this for the public craft 😅<a href="https://t.co/IeEFQTvtcS">https://t.co/IeEFQTvtcS</a> <a href="https://t.co/9lJJKuBMRr">pic.twitter.com/9lJJKuBMRr</a></p>&mdash; Pricempire.com (@pricempire) 
+      <a href="https://twitter.com/pricempire/status/1937587342073638993?ref_src=twsrc%5Etfw">December 21, 2024</a>
+    </blockquote>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 </div>
 
@@ -642,7 +676,7 @@ By continuing, you accept full responsibility for any actions or outcomes.</cent
         price: "$3,998.72",
         change: "+112%",
         isUp: true,
-        link: "https://csgoskins.gg/items/ak-47-fire-serpent" // Add your link URL here
+        link: "https://csgoskins.gg/items/ak-47-fire-serpent"
       },
       {
         image: "m4howl.png",
@@ -650,7 +684,7 @@ By continuing, you accept full responsibility for any actions or outcomes.</cent
         price: "$9,208.19",
         change: "+102%",
         isUp: true,
-        link: "https://csgoskins.gg/items/m4a4-howl" // Add your link URL here
+        link: "https://csgoskins.gg/items/m4a4-howl"
       },
       {
         image: "gammad.png",
@@ -658,7 +692,7 @@ By continuing, you accept full responsibility for any actions or outcomes.</cent
         price: "$980.00",
         change: "+145%",
         isUp: true,
-        link: "https://csgoskins.gg/items/flip-knife-gamma-doppler" // Add your link URL here
+        link: "https://csgoskins.gg/items/flip-knife-gamma-doppler"
       },
       {
         image: "hedge.png",
@@ -666,7 +700,7 @@ By continuing, you accept full responsibility for any actions or outcomes.</cent
         price: "$50,786.00",
         change: "+200%",
         isUp: true,
-        link: "https://csgoskins.gg/items/sport-gloves-hedge-maze" // Add your link URL here
+        link: "https://csgoskins.gg/items/sport-gloves-hedge-maze"
       }
     ];
     
@@ -697,10 +731,6 @@ By continuing, you accept full responsibility for any actions or outcomes.</cent
       btn.addEventListener('click', function(e) {
         // You can add additional functionality here if needed
         console.log(`Clicked on: ${this.getAttribute('href')}`);
-        
-        // If you want to prevent default and handle navigation programmatically
-        // e.preventDefault();
-        // window.location.href = this.getAttribute('href');
       });
     });
   });
